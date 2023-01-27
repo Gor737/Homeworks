@@ -1,0 +1,64 @@
+function Car(marka, model, engine, torque, rpm, color){
+    this.marka = marka
+    this.model = model
+    this.engine = engine
+    this.torque = torque
+    this.rpm = rpm
+    this.color = color
+}
+
+function horsePower(){
+    let horsePower = this.torque * this.rpm / (9.5488*745.7)
+    console.log(`HP = ${this.torque} N.m  *  ${this.rpm} rpm / (9.5488*745.7)`)
+    console.log(`${horsePower} HP`)
+}
+
+function changeColor(newColor = "black"){
+    this.color = newColor
+    color('color is changed')
+}
+
+Car.prototype.horsePower = horsePower
+Car.prototype.changeColor = changeColor
+
+let bmwE60 = new Car('bmw', 'e60', 'benzin', 500, 8250, 'darkGrey')
+
+
+
+
+
+function Mercedes(model, engine, torque, rpm, color){
+    Car.call(this, 'Mercedes', model, engine, torque, rpm, color)
+}
+
+function amg(){
+    this.torque += 100
+    this.rpm += 1000
+  console.log('now yor car Packcage is AMG')
+}
+
+Mercedes.prototype.amg = amg
+Mercedes.prototype.__proto__ = Car.prototype
+
+let w124 = new Mercedes('w124', 'benzin', 200, 5550, 'orange')
+
+
+
+function W211(engine, torque, rpm, color){
+  Mercedes.call(this, 'w211', engine, torque, rpm, color)
+}
+
+function wheels(wheelType, size){
+  this.wheelType = wheelType
+  this.wheelSize = size
+}
+
+W211.prototype.wheels = wheels
+W211.prototype.__proto__ = Mercedes.prototype
+
+let myCar = new W211('benzin', 300, 6250, 'grey')
+
+
+myCar.amg()
+myCar.horsePower()
+myCar.wheels('BBS', 'R19')
